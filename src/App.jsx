@@ -11,22 +11,21 @@ const DASHBOARDS = [
     label: '土木・建設',
     title: '土木・建設 Intelligence',
     sources: [
-      { id: 'mlit_press',   label: '国交省 プレスリリース', en: 'MLIT Press Release',    region: '行政・政策',       url: 'https://www.mlit.go.jp/pressrelease.rdf' },
-      { id: 'mlit_news',    label: '国交省 新着情報',       en: 'MLIT News',             region: '行政・政策',       url: 'https://www.mlit.go.jp/index.rdf' },
-      { id: 'mlit_saigai',  label: '国交省 災害情報',       en: 'MLIT Disaster Info',    region: '行政・政策',       url: 'https://www.mlit.go.jp/saigai.rdf' },
-      { id: 'mlit_imp',     label: '国交省 重要お知らせ',   en: 'MLIT Important Notice', region: '行政・政策',       url: 'https://www.mlit.go.jp/important.rdf' },
-      { id: 'nikkei_civil', label: '日経xTECH 土木',       en: 'Nikkei xTECH Civil',    region: '建設・土木メディア', url: 'https://xtech.nikkei.com/rss/xtech-con.rdf' },
-      { id: 'nikkei_build', label: '日経xTECH 建築',       en: 'Nikkei xTECH Building', region: '建設・土木メディア', url: 'https://xtech.nikkei.com/rss/xtech-bld.rdf' },
-      { id: 'fdma_press',   label: '消防庁 報道発表',       en: 'FDMA Press Release',    region: '防災・安全',       url: 'https://www.fdma.go.jp/pressrelease/houdou/index.xml' },
-      { id: 'fdma_info',    label: '消防庁 お知らせ',       en: 'FDMA Info',             region: '防災・安全',       url: 'https://www.fdma.go.jp/pressrelease/info/index.xml' },
-      { id: 'fdma_saigai',  label: '消防庁 災害情報',       en: 'FDMA Disaster Info',    region: '防災・安全',       url: 'https://www.fdma.go.jp/disaster/info/index.xml' },
+      { id: 'mlit_press',  label: '国交省 プレスリリース', en: 'MLIT Press Release',    region: '行政・政策', url: 'https://www.mlit.go.jp/pressrelease.rdf' },
+      { id: 'mlit_news',   label: '国交省 新着情報',       en: 'MLIT News',             region: '行政・政策', url: 'https://www.mlit.go.jp/index.rdf' },
+      { id: 'mlit_saigai', label: '国交省 災害情報',       en: 'MLIT Disaster Info',    region: '行政・政策', url: 'https://www.mlit.go.jp/saigai.rdf' },
+      { id: 'mlit_imp',    label: '国交省 重要お知らせ',   en: 'MLIT Important Notice', region: '行政・政策', url: 'https://www.mlit.go.jp/important.rdf' },
+      // nikkei_civil (xtech-con.rdf) — 廃止: サブスク認証必須でRDF取得不可
+      // nikkei_build (xtech-bld.rdf) — 廃止: 同上
+      { id: 'fdma_press',  label: '消防庁 報道発表',       en: 'FDMA Press Release',    region: '防災・安全', url: 'https://www.fdma.go.jp/pressrelease/houdou/index.xml' },
+      { id: 'fdma_info',   label: '消防庁 お知らせ',       en: 'FDMA Info',             region: '防災・安全', url: 'https://www.fdma.go.jp/pressrelease/info/index.xml' },
+      { id: 'fdma_saigai', label: '消防庁 災害情報',       en: 'FDMA Disaster Info',    region: '防災・安全', url: 'https://www.fdma.go.jp/disaster/info/index.xml' },
     ],
-    regions: ['All', '行政・政策', '建設・土木メディア', '技術・DX', '防災・安全'],
+    regions: ['All', '行政・政策', '技術・DX', '防災・安全'],
     rs: {
-      '行政・政策':         { bg: 'var(--color-background-info)',    text: 'var(--color-text-info)',    border: 'var(--color-border-info)'    },
-      '建設・土木メディア': { bg: 'var(--color-background-warning)', text: 'var(--color-text-warning)', border: 'var(--color-border-warning)' },
-      '技術・DX':           { bg: 'var(--color-background-success)', text: 'var(--color-text-success)', border: 'var(--color-border-success)' },
-      '防災・安全':         { bg: 'var(--color-background-danger)',  text: 'var(--color-text-danger)',  border: 'var(--color-border-danger)'  },
+      '行政・政策': { bg: 'var(--color-background-info)',    text: 'var(--color-text-info)',    border: 'var(--color-border-info)'    },
+      '技術・DX':   { bg: 'var(--color-background-success)', text: 'var(--color-text-success)', border: 'var(--color-border-success)' },
+      '防災・安全': { bg: 'var(--color-background-danger)',  text: 'var(--color-text-danger)',  border: 'var(--color-border-danger)'  },
     },
   },
   {
@@ -34,24 +33,26 @@ const DASHBOARDS = [
     label: '国際・経済',
     title: 'Global Policy Intelligence',
     sources: [
-      { id: 'mofa',       label: '外務省',          en: 'MOFA Japan (Safety)',      region: 'Japan',         url: 'https://www.anzen.mofa.go.jp/rss/news.xml' },
-      { id: 'boj',        label: '日本銀行',         en: 'Bank of Japan',           region: 'Japan',         url: 'https://www.boj.or.jp/rss/whatsnew.xml' },
-      { id: 'meti_g',     label: '経済産業省',       en: 'METI Japan',              region: 'Japan',         url: 'https://www.meti.go.jp/ml_index_release_atom.xml' },
-      { id: 'cao',        label: '内閣府',           en: 'Cabinet Office Japan',    region: 'Japan',         url: 'https://www.cao.go.jp/rss/news.rdf' },
-      { id: 'fed',        label: 'Federal Reserve', en: 'US Federal Reserve',      region: 'USA',           url: 'https://www.federalreserve.gov/feeds/press_all.xml' },
-      { id: 'treasury',   label: 'US Treasury',     en: 'Dept. of the Treasury',   region: 'USA',           url: 'https://home.treasury.gov/rss.xml' },
-      { id: 'state',      label: 'State Dept.',     en: 'US Dept. of State',       region: 'USA',           url: 'https://www.state.gov/rss-feeds/press-releases/' },
-      { id: 'chinadaily', label: 'China Daily',     en: 'China Daily (EN)',        region: 'China',         url: 'https://www.chinadaily.com.cn/rss/china_rss.xml' },
-      { id: 'ecb',        label: 'ECB',             en: 'European Central Bank',   region: 'Europe',        url: 'https://www.ecb.europa.eu/press/pr/rss/pr.en.rss' },
-      { id: 'ec',         label: 'EU Commission',   en: 'European Commission',     region: 'Europe',        url: 'https://ec.europa.eu/commission/presscorner/api/rss' },
-      { id: 'boe',        label: 'Bank of England', en: 'Bank of England',         region: 'UK',            url: 'https://www.bankofengland.co.uk/rss/news' },
-      { id: 'hmt',        label: 'HM Treasury',     en: 'UK HM Treasury',          region: 'UK',            url: 'https://www.gov.uk/government/organisations/hm-treasury.atom' },
-      { id: 'imf',        label: 'IMF',             en: 'Intl. Monetary Fund',     region: 'International', url: 'https://www.imf.org/en/rss-list/feed?category=WHATSNEW' },
-      { id: 'wb',         label: 'World Bank',      en: 'World Bank Blogs',        region: 'International', url: 'https://blogs.worldbank.org/rss' },
-      { id: 'oecd',       label: 'OECD',            en: 'OECD Ecoscope Blog',      region: 'International', url: 'https://oecdecoscope.blog/feed/' },
-      { id: 'wto',        label: 'WTO',             en: 'World Trade Organization',region: 'International', url: 'https://www.wto.org/rss/english/news_e.rss' },
-      { id: 'boc',        label: 'Bank of Canada',  en: 'CA Central Bank',         region: 'Canada',        url: 'https://www.bankofcanada.ca/feed/category/publications/news/' },
-      { id: 'rba',        label: 'Reserve Bank AU', en: 'AU Reserve Bank',         region: 'Australia',     url: 'https://www.rba.gov.au/rss/rss-cb-media-releases.xml' },
+      { id: 'mofa',     label: '外務省',          en: 'MOFA Japan (Safety)',      region: 'Japan',         url: 'https://www.anzen.mofa.go.jp/rss/news.xml' },
+      { id: 'boj',      label: '日本銀行',         en: 'Bank of Japan',           region: 'Japan',         url: 'https://www.boj.or.jp/rss/whatsnew.xml' },
+      { id: 'meti_g',   label: '経済産業省',       en: 'METI Japan',              region: 'Japan',         url: 'https://www.meti.go.jp/ml_index_release_atom.xml' },
+      { id: 'cao',      label: '内閣府',           en: 'Cabinet Office Japan',    region: 'Japan',         url: 'https://www.cao.go.jp/rss/news.rdf' },
+      { id: 'fed',      label: 'Federal Reserve', en: 'US Federal Reserve',      region: 'USA',           url: 'https://www.federalreserve.gov/feeds/press_all.xml' },
+      { id: 'treasury', label: 'US Treasury',     en: 'Dept. of the Treasury',   region: 'USA',           url: 'https://home.treasury.gov/rss.xml' },
+      // state — 旧URL (/rss-feeds/press-releases/) を修正
+      { id: 'state',    label: 'State Dept.',     en: 'US Dept. of State',       region: 'USA',           url: 'https://www.state.gov/press-releases/feed/' },
+      { id: 'chinadaily',label: 'China Daily',    en: 'China Daily (EN)',        region: 'China',         url: 'https://www.chinadaily.com.cn/rss/china_rss.xml' },
+      // ecb — 廃止: ECBが旧RSSエンドポイントを閉鎖。EU CommissionフィードでEuropeカバー継続
+      { id: 'ec',       label: 'EU Commission',   en: 'European Commission',     region: 'Europe',        url: 'https://ec.europa.eu/commission/presscorner/api/rss' },
+      { id: 'boe',      label: 'Bank of England', en: 'Bank of England',         region: 'UK',            url: 'https://www.bankofengland.co.uk/rss/news' },
+      { id: 'hmt',      label: 'HM Treasury',     en: 'UK HM Treasury',          region: 'UK',            url: 'https://www.gov.uk/government/organisations/hm-treasury.atom' },
+      // imf — 公式ニュースRSS廃止確認済 → 廃止
+      // wb  — 公式ニュースRSS廃止確認済 → 廃止
+      { id: 'oecd',     label: 'OECD',            en: 'OECD Ecoscope Blog',      region: 'International', url: 'https://oecdecoscope.blog/feed/' },
+      { id: 'wto',      label: 'WTO',             en: 'World Trade Organization',region: 'International', url: 'https://www.wto.org/rss/english/news_e.rss' },
+      // boc — 旧URL (/feed/category/publications/news/) を修正
+      { id: 'boc',      label: 'Bank of Canada',  en: 'CA Central Bank',         region: 'Canada',        url: 'https://www.bankofcanada.ca/feed/' },
+      { id: 'rba',      label: 'Reserve Bank AU', en: 'AU Reserve Bank',         region: 'Australia',     url: 'https://www.rba.gov.au/rss/rss-cb-media-releases.xml' },
     ],
     regions: ['All', 'Japan', 'USA', 'China', 'Europe', 'UK', 'International', 'Canada', 'Australia'],
     rs: {
@@ -70,28 +71,33 @@ const DASHBOARDS = [
     label: '産業技術・IT',
     title: 'Tech & AI Intelligence',
     sources: [
-      { id: 'openai',        label: 'OpenAI Blog',    en: 'OpenAI',               region: 'AI',          url: 'https://openai.com/blog/rss/' },
-      { id: 'anthropic',     label: 'Anthropic',      en: 'Anthropic',            region: 'AI',          url: 'https://www.anthropic.com/rss.xml' },
+      // openai — 廃止: OpenAI はブログRSSを廃止済み
+      // anthropic — 廃止: 公式RSSフィードなし（確認済み）
       { id: 'google_ai',     label: 'Google AI',      en: 'Google AI Blog',       region: 'AI',          url: 'https://blog.google/technology/ai/rss/' },
       { id: 'deepmind',      label: 'DeepMind',       en: 'Google DeepMind',      region: 'AI',          url: 'https://deepmind.google/blog/rss.xml' },
       { id: 'msft_ai',       label: 'Microsoft AI',   en: 'Microsoft AI Blog',    region: 'AI',          url: 'https://blogs.microsoft.com/ai/feed/' },
       { id: 'mit_ai',        label: 'MIT AI News',    en: 'MIT News (AI)',        region: 'AI',          url: 'https://news.mit.edu/rss/topic/artificial-intelligence2' },
+      // techcrunch_ai は元から問題なし
       { id: 'techcrunch_ai', label: 'TechCrunch AI',  en: 'TechCrunch AI',        region: 'AI Media',    url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
-      { id: 'venturebeat',   label: 'VentureBeat AI', en: 'VentureBeat AI',       region: 'AI Media',    url: 'https://venturebeat.com/ai/feed/' },
+      // venturebeat — カテゴリ別AIフィードを確認済
+      { id: 'venturebeat',   label: 'VentureBeat AI', en: 'VentureBeat AI',       region: 'AI Media',    url: 'https://venturebeat.com/category/ai/feed/' },
       { id: 'wired_ai',      label: 'WIRED AI',       en: 'WIRED AI',             region: 'AI Media',    url: 'https://www.wired.com/feed/tag/ai/latest/rss' },
-      { id: 'theregister',   label: 'The Register',   en: 'The Register (AI)',    region: 'AI Media',    url: 'https://www.theregister.com/emergent_tech/ai_ml/headlines.atom' },
+      // theregister — カテゴリ別atomから全体headlines.atomに変更
+      { id: 'theregister',   label: 'The Register',   en: 'The Register',         region: 'AI Media',    url: 'https://www.theregister.com/headlines.atom' },
       { id: 'itmedia_ai',    label: 'ITmedia AI+',    en: 'ITmedia AI+',          region: 'AI Japan',    url: 'https://rss.itmedia.co.jp/rss/2.0/aiplus.xml' },
-      { id: 'nikkei_tech',   label: '日経XTECH',      en: 'Nikkei XTECH',         region: 'AI Japan',    url: 'https://xtech.nikkei.com/rss/xtech-it.rdf' },
-      { id: 'zdnet_jp',      label: 'ZDNet Japan',    en: 'ZDNet Japan',          region: 'AI Japan',    url: 'https://japan.zdnet.com/rss/20.xml' },
+      // nikkei_tech (xtech-it.rdf) — 廃止: サブスク認証必須
+      // zdnet_jp — 廃止: 有効なRSSフィードURL確認不可
       { id: 'ieee',          label: 'IEEE Spectrum',  en: 'IEEE Spectrum',        region: 'Tech Global', url: 'https://spectrum.ieee.org/rss/fulltext' },
       { id: 'mit_news',      label: 'MIT News',       en: 'MIT News (Tech)',      region: 'Tech Global', url: 'https://news.mit.edu/rss/topic/technology' },
-      { id: 'nist',          label: 'NIST',           en: 'NIST',                 region: 'Tech Global', url: 'https://www.nist.gov/news-events/rss.xml' },
-      { id: 'wef_tech',      label: 'WEF Technology', en: 'World Economic Forum', region: 'Tech Global', url: 'https://www.weforum.org/agenda/feed/rss/?topic=emerging-technologies' },
+      // nist — URL修正: 実際に存在するパスに変更（確認済み）
+      { id: 'nist',          label: 'NIST',           en: 'NIST',                 region: 'Tech Global', url: 'https://www.nist.gov/news-events/news/rss.xml' },
+      // wef_tech — 廃止: agenda.weforum.org/feed/ 404確認済
       { id: 'meti_t',        label: '経済産業省',      en: 'METI Japan',           region: 'Tech JP',     url: 'https://www.meti.go.jp/ml_index_release_atom.xml' },
       { id: 'itmedia_news',  label: 'ITmedia NEWS',   en: 'ITmedia NEWS',         region: 'Tech JP',     url: 'https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml' },
       { id: 'itmedia_enter', label: 'ITmedia Enterprise', en: 'ITmedia Enterprise', region: 'Tech JP',   url: 'https://rss.itmedia.co.jp/rss/2.0/enterprise.xml' },
       { id: 'ascii_tech',    label: 'ASCII.jp',       en: 'ASCII.jp Technology',  region: 'Tech JP',     url: 'https://ascii.jp/rss.xml' },
-      { id: 'mynavi_tech',   label: 'マイナビニュース', en: 'Mynavi News IT',       region: 'Tech JP',     url: 'https://news.mynavi.jp/rss/technology' },
+      // mynavi_tech — TECH+に移行済み、新URLを確認済み
+      { id: 'mynavi_tech',   label: 'マイナビ TECH+',  en: 'Mynavi TECH+',         region: 'Tech JP',     url: 'https://news.mynavi.jp/rss/techplus/technology' },
       { id: 'impress',       label: 'Impress Watch',  en: 'Impress Watch',        region: 'Tech JP',     url: 'https://www.watch.impress.co.jp/data/rss/1.0/ipw/feed.rdf' },
     ],
     regions: ['All', 'AI', 'AI Japan', 'AI Media', 'Tech Global', 'Tech JP'],
@@ -179,7 +185,6 @@ function Dashboard({ dash }) {
     setUpdatedAt(new Date());
   }, [dash]);
 
-  // タブが初めて表示されたときだけ自動ロード
   useEffect(() => {
     if (!loadedRef.current) {
       loadedRef.current = true;
