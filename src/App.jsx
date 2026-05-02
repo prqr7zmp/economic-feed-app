@@ -15,17 +15,18 @@ const DASHBOARDS = [
       { id: 'mlit_news',   label: '国交省 新着情報',       en: 'MLIT News',             region: '行政・政策', url: 'https://www.mlit.go.jp/index.rdf' },
       { id: 'mlit_saigai', label: '国交省 災害情報',       en: 'MLIT Disaster Info',    region: '行政・政策', url: 'https://www.mlit.go.jp/saigai.rdf' },
       { id: 'mlit_imp',    label: '国交省 重要お知らせ',   en: 'MLIT Important Notice', region: '行政・政策', url: 'https://www.mlit.go.jp/important.rdf' },
-      // nikkei_civil (xtech-con.rdf) — 廃止: サブスク認証必須でRDF取得不可
-      // nikkei_build (xtech-bld.rdf) — 廃止: 同上
+      { id: 'itmedia_built', label: 'ITmedia BUILT',      en: 'ITmedia BUILT',         region: '建設・土木メディア', url: 'https://rss.itmedia.co.jp/rss/2.0/built.xml' },
+      { id: 'itmedia_smartcity', label: 'ITmedia スマートシティ', en: 'ITmedia Smart City', region: '技術・DX', url: 'https://rss.itmedia.co.jp/rss/2.0/smartcity.xml' },
       { id: 'fdma_press',  label: '消防庁 報道発表',       en: 'FDMA Press Release',    region: '防災・安全', url: 'https://www.fdma.go.jp/pressrelease/houdou/index.xml' },
       { id: 'fdma_info',   label: '消防庁 お知らせ',       en: 'FDMA Info',             region: '防災・安全', url: 'https://www.fdma.go.jp/pressrelease/info/index.xml' },
       { id: 'fdma_saigai', label: '消防庁 災害情報',       en: 'FDMA Disaster Info',    region: '防災・安全', url: 'https://www.fdma.go.jp/disaster/info/index.xml' },
     ],
-    regions: ['All', '行政・政策', '技術・DX', '防災・安全'],
+    regions: ['All', '行政・政策', '建設・土木メディア', '技術・DX', '防災・安全'],
     rs: {
-      '行政・政策': { bg: 'var(--color-background-info)',    text: 'var(--color-text-info)',    border: 'var(--color-border-info)'    },
-      '技術・DX':   { bg: 'var(--color-background-success)', text: 'var(--color-text-success)', border: 'var(--color-border-success)' },
-      '防災・安全': { bg: 'var(--color-background-danger)',  text: 'var(--color-text-danger)',  border: 'var(--color-border-danger)'  },
+      '行政・政策':         { bg: 'var(--color-background-info)',    text: 'var(--color-text-info)',    border: 'var(--color-border-info)'    },
+      '建設・土木メディア': { bg: 'var(--color-background-warning)', text: 'var(--color-text-warning)', border: 'var(--color-border-warning)' },
+      '技術・DX':           { bg: 'var(--color-background-success)', text: 'var(--color-text-success)', border: 'var(--color-border-success)' },
+      '防災・安全':         { bg: 'var(--color-background-danger)',  text: 'var(--color-text-danger)',  border: 'var(--color-border-danger)'  },
     },
   },
   {
@@ -192,7 +193,12 @@ function Dashboard({ dash }) {
     }
   }, [load]);
 
-  const shown    = filter === 'All' ? articles : articles.filter(a => a.region === filter);
+  const shown = filter === 'All' ? articles : articles.filter(a => a.region === filter);
+
+  // フィルタリングの厳格化：現在のダッシュボードに属さない地域の記事を除外
+  const filteredArticles = articles.filter(a => dash.regions.includes(a.region) || a.region === "All");
+  const displayArticles = filter === 'All' ? filteredArticles : filteredArticles.filter(a => a.region === filter);
+
   const loading  = Object.values(statuses).some(s => s === 'loading');
   const okCount  = Object.values(statuses).filter(s => s === 'ok').length;
   const errCount = Object.values(statuses).filter(s => s === 'error').length;
@@ -233,7 +239,7 @@ function Dashboard({ dash }) {
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 2 }}>
         {regions.map(r => {
           const rst  = rs[r];
-          const cnt  = r === 'All' ? articles.length : articles.filter(a => a.region === r).length;
+          const cnt  = r === 'All' ? filteredArticles.length : filteredArticles.filter(a => a.region === r).length;
           const isOn = filter === r;
           return (
             <button
@@ -251,7 +257,7 @@ function Dashboard({ dash }) {
 
       {/* ── 記事一覧 ── */}
       <div style={{ padding: '0.5rem 0 1rem' }}>
-        {articles.length === 0 && loading && [...Array(6)].map((_, i) => (
+        {filteredArticles.length === 0 && loading && [...Array(6)].map((_, i) => (
           <div key={i} className="pulse" style={{
             height: 72, background: 'var(--color-background-secondary)',
             borderRadius: 'var(--border-radius-md)', marginBottom: 8,
@@ -259,7 +265,7 @@ function Dashboard({ dash }) {
         ))}
 
         <div className="art-row">
-          {shown.map(a => {
+          {displayArticles.map(a => {
             const rst = rs[a.region] || fallbackRs;
             return (
               <div key={a.id} className="art-item">
